@@ -2,7 +2,6 @@
 # https://github.com/feconroses/gather-tweets-from-stream
 
 import tweepy
-import csv
 import ssl
 import time
 from requests.exceptions import Timeout, ConnectionError
@@ -19,8 +18,11 @@ access_key = "ACCESS_KEY"
 access_secret = "ACCESS_SECRET"
 
 # Handling authentication with Twitter
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_key, access_secret)
+# auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+# auth.set_access_token(access_key, access_secret)
+auth = tweepy.OAuthHandler('iN2TGS8169183HWAZajVqFS66', 'QTlFuWNCDoti3dCDLMSKN0ZN5Nknz5fHwljSS8fBJgJ2H2hEBp')
+auth.set_access_token('2750623990-ZSu7V2ijxSmlEWGu18oZ9o3FODyh4iu8Vtr5ZDI',
+                      'c5rRiEzIOOyJLw2eNUzRyUVp6IGOnzQ5Uyqwr8hLioSbn')
 
 # Create a wrapper for the API provided by Twitter
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
@@ -50,7 +52,7 @@ def search_tweets(lang, geo):
                                              geocode=geo,
                                              result_type='recent',
                                              include_entities=True,
-                                             until=datetime.date.today()).items(500)):
+                                             until=datetime.date.today()).items(50)):
 
         try:
 
@@ -65,6 +67,8 @@ def search_tweets(lang, geo):
                        .replace('&#39;', "'").replace(';', " ")
                        .replace(r'\u', " ").replace('\u2026', "")
                        .replace('\n', ''))
+
+            content.encode('ascii', 'ignore').decode('ascii')
 
             # Exclude retweets, too many mentions and too many hashtags
             if not any((('RT @' in content, 'RT' in content,

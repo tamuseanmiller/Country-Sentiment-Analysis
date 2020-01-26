@@ -27,8 +27,11 @@ def run_sentiment_analysis(filename):
             "type": enums.Document.Type.PLAIN_TEXT}
 
         # Attain the score of the line of text
-        score = client.analyze_sentiment(document=document,
+        try:
+            score = client.analyze_sentiment(document=document,
                                          encoding_type=enums.EncodingType.UTF8).document_sentiment.score
+        except:
+            logging.info("Big Rip on that analysis")
 
         if score > 0:
             sentiment += 1

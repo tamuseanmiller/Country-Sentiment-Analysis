@@ -15,10 +15,10 @@ app = Flask(__name__)
 
 
 # Get RESTful API call
-@app.route('/Hackathon/<lang>/<lat>/<long>/<rad>', methods=['GET'])
-def get_opinion(lang, lat, long, rad):
-    search.work(str(lang), str(lat) + ',' + str(long) + ',' + str(int(rad) / 1000) + 'km')
-    news.getNews('College Station')
+@app.route('/Hackathon/<lang>/<lat>/<long>/<rad>/<name>', methods=['GET'])
+def get_opinion(lang, lat, long, rad, name):
+    search.work(str(lang), str(lat) + ',' + str(long) + ',' + str(int(rad)) + 'mi')
+    news.getNews(name)
     opinion = sentiment.run_sentiment_analysis('tweets.txt')
     opinion += sentiment.run_sentiment_analysis('news.txt')
 
@@ -26,7 +26,7 @@ def get_opinion(lang, lat, long, rad):
     if opinion > 0:
         opinion = "+" + str(opinion)
     elif opinion < 0:
-        opinion = "-" + str(opinion)
+        opinion = str(opinion)
     else:
         opinion = str(opinion)
 
