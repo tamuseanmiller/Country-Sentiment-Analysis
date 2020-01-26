@@ -18,11 +18,8 @@ access_key = "ACCESS_KEY"
 access_secret = "ACCESS_SECRET"
 
 # Handling authentication with Twitter
-# auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-# auth.set_access_token(access_key, access_secret)
-auth = tweepy.OAuthHandler('iN2TGS8169183HWAZajVqFS66', 'QTlFuWNCDoti3dCDLMSKN0ZN5Nknz5fHwljSS8fBJgJ2H2hEBp')
-auth.set_access_token('2750623990-ZSu7V2ijxSmlEWGu18oZ9o3FODyh4iu8Vtr5ZDI',
-                      'c5rRiEzIOOyJLw2eNUzRyUVp6IGOnzQ5Uyqwr8hLioSbn')
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_key, access_secret)
 
 # Create a wrapper for the API provided by Twitter
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
